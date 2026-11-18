@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Bara 1 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M1,21 L1,17 L4,17 L4,21 Z" />
+
+    <!-- Bara 2 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6,21 L6,15 L9,15 L9,21 Z" />
+
+    <!-- Bara 3 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M11,21 L11,16 L14,16 L14,21 Z" />
+
+    <!-- Bara 4 — spike -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16,21 L16,7 L19,7 L19,21 Z" />
+
+    <!-- Sageata deasupra spike-ului -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M17.5,4 L14.5,7 L20.5,7 Z" />
+
+    <!-- Linie de baza -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M0,22 L24,22 L24,23 L0,23 Z" />
+
+</vector>

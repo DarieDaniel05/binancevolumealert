@@ -1,0 +1,316 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_primary">
+
+    <!-- Titlu -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HIGH VOLUME BARS"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:fontFamily="sans-serif-black" />
+
+    </LinearLayout>
+
+    <!-- TabLayout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_surface"
+        app:tabSelectedTextColor="@color/accent_green"
+        app:tabTextColor="@color/text_secondary"
+        app:tabIndicatorColor="@color/accent_green"
+        app:tabIndicatorHeight="2dp"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabMode="fixed"
+        app:tabGravity="fill" />
+
+    <!-- Container comun — umple restul ecranului -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- ═══════ CONTENT 1H ═══════ -->
+        <LinearLayout
+            android:id="@+id/content1h"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <!-- Card control 1H -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:padding="14dp">
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monitorizare oprită"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnToggle"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="PORNIRE"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/bg_primary"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:icon="@drawable/ic_play"
+                        app:iconTint="@color/bg_primary"
+                        app:iconGravity="top"
+                        app:iconPadding="4dp"
+                        app:iconSize="20dp"
+                        app:cornerRadius="14dp"
+                        app:backgroundTint="@color/accent_green" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTest"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:text="TEST"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_secondary"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:icon="@drawable/ic_refresh"
+                        app:iconTint="@color/text_secondary"
+                        app:iconGravity="top"
+                        app:iconPadding="4dp"
+                        app:iconSize="20dp"
+                        app:cornerRadius="14dp"
+                        app:backgroundTint="@color/bg_elevated"
+                        app:strokeColor="@color/divider_bright"
+                        app:strokeWidth="1dp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:indeterminateTint="@color/accent_green"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <!-- RecyclerView 1H -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAlerts1h"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
+                android:visibility="gone" />
+
+            <!-- Empty 1H -->
+            <LinearLayout
+                android:id="@+id/empty1h"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textColor="@color/divider_bright"
+                    android:textSize="36sp"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Nicio alertă 1H.\nPornește monitorizarea sau apasă TEST."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.4" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ═══════ CONTENT 5M ═══════ -->
+        <LinearLayout
+            android:id="@+id/content5m"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Card control 5M -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:padding="14dp">
+
+                <TextView
+                    android:id="@+id/tvStatus5m"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monitorizare oprită"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnToggle5m"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="PORNIRE"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/bg_primary"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:icon="@drawable/ic_play"
+                        app:iconTint="@color/bg_primary"
+                        app:iconGravity="top"
+                        app:iconPadding="4dp"
+                        app:iconSize="20dp"
+                        app:cornerRadius="14dp"
+                        app:backgroundTint="@color/accent_green" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTest5m"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:text="TEST"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_secondary"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:icon="@drawable/ic_refresh"
+                        app:iconTint="@color/text_secondary"
+                        app:iconGravity="top"
+                        app:iconPadding="4dp"
+                        app:iconSize="20dp"
+                        app:cornerRadius="14dp"
+                        app:backgroundTint="@color/bg_elevated"
+                        app:strokeColor="@color/divider_bright"
+                        app:strokeWidth="1dp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar5m"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:indeterminateTint="#FF8C00"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <!-- RecyclerView 5M -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAlerts5m"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
+                android:visibility="gone" />
+
+            <!-- Empty 5M -->
+            <LinearLayout
+                android:id="@+id/empty5m"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textColor="@color/divider_bright"
+                    android:textSize="36sp"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Nicio alertă 5M.\nPornește monitorizarea sau apasă TEST."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.4" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
