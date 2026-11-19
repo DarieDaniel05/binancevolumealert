@@ -9,11 +9,13 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.Constraints
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var rvAlerts1h:  RecyclerView
     private lateinit var empty1h:     View
+    private lateinit var etMult1h6h:  EditText
+    private lateinit var etMult1h24h: EditText
 
     // ── View-uri 5M ──────────────────────────────────────────────────────────
     private lateinit var content5m:     View
@@ -43,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar5m: ProgressBar
     private lateinit var rvAlerts5m:    RecyclerView
     private lateinit var empty5m:       View
+    private lateinit var etMult5m6h:    EditText
+    private lateinit var etMult5m24h:   EditText
 
     // ── Comune ────────────────────────────────────────────────────────────────
     private lateinit var tabLayout:  TabLayout
@@ -69,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         setupTabs()
         setupWorkManagerObservers()
         setupClickListeners()
+        setupMultiplierInputs()
         updateToggleUi1h()
         updateToggleUi5m()
     }
@@ -84,15 +91,50 @@ class MainActivity : AppCompatActivity() {
         progressBar  = findViewById(R.id.progressBar)
         rvAlerts1h   = findViewById(R.id.rvAlerts1h)
         empty1h      = findViewById(R.id.empty1h)
+        etMult1h6h   = findViewById(R.id.etMult1h6h)
+        etMult1h24h  = findViewById(R.id.etMult1h24h)
 
         // 5M
-        content5m    = findViewById(R.id.content5m)
-        btnToggle5m  = findViewById(R.id.btnToggle5m)
-        btnTest5m    = findViewById(R.id.btnTest5m)
-        tvStatus5m   = findViewById(R.id.tvStatus5m)
+        content5m     = findViewById(R.id.content5m)
+        btnToggle5m   = findViewById(R.id.btnToggle5m)
+        btnTest5m     = findViewById(R.id.btnTest5m)
+        tvStatus5m    = findViewById(R.id.tvStatus5m)
         progressBar5m = findViewById(R.id.progressBar5m)
-        rvAlerts5m   = findViewById(R.id.rvAlerts5m)
-        empty5m      = findViewById(R.id.empty5m)
+        rvAlerts5m    = findViewById(R.id.rvAlerts5m)
+        empty5m       = findViewById(R.id.empty5m)
+        etMult5m6h    = findViewById(R.id.etMult5m6h)
+        etMult5m24h   = findViewById(R.id.etMult5m24h)
+    }
+
+    private fun setupMultiplierInputs() {
+        fun Double.formatClean(): String =
+            if (this % 1.0 == 0.0) this.toLong().toString() else this.toString()
+
+        etMult1h6h.setText(AlertStorage.getMultiplier1h6h(this).formatClean())
+        etMult1h24h.setText(AlertStorage.getMultiplier1h24h(this).formatClean())
+        etMult5m6h.setText(AlertStorage.getMultiplier5m6h(this).formatClean())
+        etMult5m24h.setText(AlertStorage.getMultiplier5m24h(this).formatClean())
+
+        etMult1h6h.doAfterTextChanged { text ->
+            text?.toString()?.toDoubleOrNull()?.let {
+                if (it > 0) AlertStorage.setMultiplier1h6h(this, it)
+            }
+        }
+        etMult1h24h.doAfterTextChanged { text ->
+            text?.toString()?.toDoubleOrNull()?.let {
+                if (it > 0) AlertStorage.setMultiplier1h24h(this, it)
+            }
+        }
+        etMult5m6h.doAfterTextChanged { text ->
+            text?.toString()?.toDoubleOrNull()?.let {
+                if (it > 0) AlertStorage.setMultiplier5m6h(this, it)
+            }
+        }
+        etMult5m24h.doAfterTextChanged { text ->
+            text?.toString()?.toDoubleOrNull()?.let {
+                if (it > 0) AlertStorage.setMultiplier5m24h(this, it)
+            }
+        }
     }
 
     private fun setupAdapters() {

@@ -121,6 +121,52 @@ object AlertStorage {
         return alerts.count { it.timestamp in latest until latest + 300_000L }
     }
 
+    // ── Multipliers 5M & 1H ───────────────────────────────────────────────────
+    private const val KEY_MULT_5M_6H  = "mult_5m_6h"
+    private const val KEY_MULT_5M_24H = "mult_5m_24h"
+    private const val KEY_MULT_1H_6H  = "mult_1h_6h"
+    private const val KEY_MULT_1H_24H = "mult_1h_24h"
+
+    fun getMultiplier5m6h(context: Context): Double {
+        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        return prefs.getFloat(KEY_MULT_5M_6H, 1.0f).toDouble()
+    }
+
+    fun setMultiplier5m6h(context: Context, value: Double) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit().putFloat(KEY_MULT_5M_6H, value.toFloat()).apply()
+    }
+
+    fun getMultiplier5m24h(context: Context): Double {
+        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        return prefs.getFloat(KEY_MULT_5M_24H, 1.0f).toDouble()
+    }
+
+    fun setMultiplier5m24h(context: Context, value: Double) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit().putFloat(KEY_MULT_5M_24H, value.toFloat()).apply()
+    }
+
+    fun getMultiplier1h6h(context: Context): Double {
+        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        return prefs.getFloat(KEY_MULT_1H_6H, 10.0f).toDouble()
+    }
+
+    fun setMultiplier1h6h(context: Context, value: Double) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit().putFloat(KEY_MULT_1H_6H, value.toFloat()).apply()
+    }
+
+    fun getMultiplier1h24h(context: Context): Double {
+        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        return prefs.getFloat(KEY_MULT_1H_24H, 5.0f).toDouble()
+    }
+
+    fun setMultiplier1h24h(context: Context, value: Double) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit().putFloat(KEY_MULT_1H_24H, value.toFloat()).apply()
+    }
+
     private fun saveAlerts(context: Context, alerts: List<VolumeAlert>) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit().putString(KEY_ALERTS, Gson().toJson(alerts)).apply()

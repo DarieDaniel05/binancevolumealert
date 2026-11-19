@@ -99,8 +99,11 @@ class VolumeCheckWorker(appContext: Context, params: WorkerParameters) :
             val openPrice  = (klines[26][1] as String).toDouble()
             val closePrice = (klines[26][4] as String).toDouble()
 
+            val mult6h = AlertStorage.getMultiplier1h6h(applicationContext)
+            val mult24h = AlertStorage.getMultiplier1h24h(applicationContext)
+
             // ── Filtre obligatorii ────────────────────────────────────────
-            if (currentVolume < avg24h * 5 || currentVolume < avg6h * 10) return
+            if (currentVolume < avg24h * mult24h || currentVolume < avg6h * mult6h) return
             if (dailyUsdt <= 6_666_666) return
             if (currentVolume < totalHoursVolume * 3) return
             if (openPrice > closePrice) return

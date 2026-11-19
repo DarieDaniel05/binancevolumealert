@@ -133,12 +133,15 @@ class VolumeCheck5mWorker(appContext: Context, params: WorkerParameters) :
 
             if (avg6h <= 0 || avg24h <= 0) return
 
-            // ── Conditii principale ───────────────────────────────────────────
-            // Candela 5m curenta > 3x media ultimelor 6 ore
-            if (currentVol5m < avg6h * 1) return
+            val mult6h = AlertStorage.getMultiplier5m6h(applicationContext)
+            val mult24h = AlertStorage.getMultiplier5m24h(applicationContext)
 
-            // Candela 5m curenta > 6x media ultimelor 24 de ore
-            if (currentVol5m < avg24h * 1) return
+            // ── Conditii principale ───────────────────────────────────────────
+            // Candela 5m curenta vs media ultimelor 6 ore
+            if (currentVol5m < avg6h * mult6h) return
+
+            // Candela 5m curenta vs media ultimelor 24 de ore
+            if (currentVol5m < avg24h * mult24h) return
 
             // Volum zilnic: eliminam monedele cu lichiditate prea mare
             val dailyUsdt = ticker?.quoteVolume?.toDoubleOrNull() ?: 0.0
@@ -154,11 +157,11 @@ class VolumeCheck5mWorker(appContext: Context, params: WorkerParameters) :
 
             var stars = 0
 
-            // ★1 — Spike foarte puternic vs 6h: >6x (dublu fata de pragul minim de 3x)
-            if (currentVol5m >= avg6h * 6) stars++
+            // ★1 — Spike foarte puternic vs 6h (dublu fata de pragul minim setat)
+            if (currentVol5m >= avg6h * mult6h * 2) stars++
 
-            // ★2 — Spike foarte puternic vs 24h: >12x (dublu fata de pragul minim de 6x)
-            if (currentVol5m >= avg24h * 12) stars++
+            // ★2 — Spike foarte puternic vs 24h (dublu fata de pragul minim setat)
+            if (currentVol5m >= avg24h * mult24h * 2) stars++
 
             // ★3 — Candela verde (directia e de cumparare)
             if (closePrice > openPrice) stars++
